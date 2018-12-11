@@ -18,3 +18,6 @@ deamon:
 
 run:
 	docker run -it --rm -p 8080:8080 $(IMAGE)
+
+test:
+	python test.py

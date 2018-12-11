@@ -10,4 +10,5 @@ before_install:
   - make deamon
 
 script:
-  - python test.py
+  - sleep 10
+  - make test
