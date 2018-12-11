@@ -32,35 +32,6 @@ conf-basic.xml
 docker run -d --name pullenti -p 8083:8080 -v $PWD/conf-basic.xml:/app/conf.xml pullenti/pullenti-server
 ```
 
-Логи
-
-```bash
-docker logs pullenti
-
-2018-12-11 06:04:29 [INFO] Init Pullenti v3.14 ...
-2018-12-11 06:04:29 [INFO] Load lang: ru
-2018-12-11 06:04:30 [INFO] Load lang: ua
-2018-12-11 06:04:30 [INFO] Load lang: by
-2018-12-11 06:04:30 [INFO] Load lang: en
-2018-12-11 06:04:30 [INFO] Load lang: it
-2018-12-11 06:04:30 [INFO] Load lang: kz
-2018-12-11 06:04:30 [INFO] Load analyzer: money
-2018-12-11 06:04:30 [INFO] Load analyzer: uri
-2018-12-11 06:04:30 [INFO] Load analyzer: phone
-2018-12-11 06:04:30 [INFO] Load analyzer: date
-2018-12-11 06:04:30 [INFO] Load analyzer: keyword
-2018-12-11 06:04:30 [INFO] Load analyzer: definition
-2018-12-11 06:04:30 [INFO] Load analyzer: denomination
-...
-```
-
-Остановить
-
-```bash
-docker kill pullenti
-docker rm pullenti
-```
-
 Запрос
 
 ```bash
@@ -101,7 +72,30 @@ curl -X POST http://localhost:8083/ -d 'Единственным конкуре�
 
 ```
 
-Разбора ответа сервера есть специальная библиотека [pullenti-client](https://github.com/pullenti/pullenti-client).
+Для разбора ответа сервера есть специальная библиотека [pullenti-client](https://github.com/pullenti/pullenti-client).
+
+Логи
+
+```bash
+docker logs pullenti
+
+2018-12-11 06:14:56 [INFO] Init Pullenti v3.14 ...
+2018-12-11 06:14:56 [INFO] Load lang: ru
+2018-12-11 06:14:57 [INFO] Load lang: en
+2018-12-11 06:14:57 [INFO] Load analyzer: geo
+2018-12-11 06:14:57 [INFO] Load analyzer: org
+2018-12-11 06:14:58 [INFO] Load analyzer: person
+2018-12-11 06:14:59 [INFO] Listen prefix: http://*:8080/
+2018-12-11 06:16:21 [INFO] Process: 389 chars, 1.707s, 5 refs
+...
+```
+
+Остановить
+
+```bash
+docker kill pullenti
+docker rm pullenti
+```
 
 ## Разработка
 
