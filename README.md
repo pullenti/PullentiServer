@@ -1,4 +1,4 @@
-# PullentiServer
+# PullentiServer [![Build Status](https://travis-ci.org/pullenti/PullentiServer.svg?branch=master)](https://travis-ci.org/pullenti/PullentiServer)
 
 Простая обёртка HTTP-сервер для библиотеки PullEnti для .NET Core 2.0. Запросы обрабатываются последовательно, нет ограничений на число запросов, объём текста в одном запросе, время обработки. Предполагается, что сервер используется локально в связке с [pullenti-client](https://github.com/pullenti/pullenti-client). 
 
