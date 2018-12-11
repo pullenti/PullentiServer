@@ -10,5 +10,5 @@ before_install:
   - make deamon
 
 script:
-  - sleep 10
+  - sleep 20
   - make test
