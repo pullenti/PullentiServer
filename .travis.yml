@@ -1,0 +1,13 @@
+language: python
+python:
+  - "3.5"
+ 
+services:
+  - docker
+
+before_install:
+  - make image
+  - make deamon
+
+script:
+  - python test.py

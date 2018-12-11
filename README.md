@@ -6,7 +6,7 @@
 
 Сервер распространяется в виде Docker-контейнера, настраивается XML-конфигурацией.
 
-conf-basic.xml:
+custom.xml:
 ```xml
 <?xml version="1.0" encoding="utf-8" ?>
 <conf>
@@ -26,10 +26,13 @@ conf-basic.xml:
 </conf>
 ```
 
+Cписок langs: ru, ua, by, en, it, kz.
+Список analyzers: money, uri, phone, date, keyword, definition, denomination, measure, bank, geo, address, org, person, mail, transport, decree, instrument, titlepage, booklink, business, named, weapon.
+
 Запустить демон на порте 8083:
 
 ```bash
-docker run -d --name pullenti -p 8083:8080 -v $PWD/conf-basic.xml:/app/conf.xml pullenti/pullenti-server
+docker run -d --name pullenti -p 8083:8080 -v $PWD/custon.xml:/app/conf.xml pullenti/pullenti-server
 ```
 
 Запрос:
