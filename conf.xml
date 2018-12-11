@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<conf>
+  <listen>
+    <host>*</host>
+    <port>8080</port>
+  </listen>
+  <langs>
+    <lang>ru</lang>
+    <lang>en</lang>
+  </langs>
+  <analyzers>
+    <analyzer>geo</analyzer>
+    <analyzer>org</analyzer>
+    <analyzer>person</analyzer>
+  </analyzers>
+</conf>
