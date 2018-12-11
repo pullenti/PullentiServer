@@ -151,14 +151,37 @@ class Pullenti
     public static Dictionary<string, MorphLang> LANGS = new Dictionary<string, MorphLang>
 	{
 	    {"ru", MorphLang.RU},
-	    {"en", MorphLang.EN}
+	    {"ua", MorphLang.UA},
+	    {"by", MorphLang.BY},
+	    {"en", MorphLang.EN},
+	    {"it", MorphLang.IT},
+	    {"kz", MorphLang.KZ},
 	};
 
     public static Dictionary<string, Action> ANALYZERS = new Dictionary<string, Action>
 	{
+	    {"money", EP.Ner.Money.MoneyAnalyzer.Initialize},
+	    {"uri", EP.Ner.Uri.UriAnalyzer.Initialize},
+	    {"phone", EP.Ner.Phone.PhoneAnalyzer.Initialize},
+	    {"date", EP.Ner.Date.DateAnalyzer.Initialize},
+	    {"keyword", EP.Ner.Keyword.KeywordAnalyzer.Initialize},
+	    {"definition", EP.Ner.Definition.DefinitionAnalyzer.Initialize},
+	    {"denomination", EP.Ner.Denomination.DenominationAnalyzer.Initialize},
+	    {"measure", EP.Ner.Measure.MeasureAnalyzer.Initialize},
+	    {"bank", EP.Ner.Bank.BankAnalyzer.Initialize},
 	    {"geo", EP.Ner.Geo.GeoAnalyzer.Initialize},
+	    {"address", EP.Ner.Address.AddressAnalyzer.Initialize},
 	    {"org", EP.Ner.Org.OrganizationAnalyzer.Initialize},
 	    {"person", EP.Ner.Person.PersonAnalyzer.Initialize},
+	    {"mail", EP.Ner.Mail.MailAnalyzer.Initialize},
+	    {"transport", EP.Ner.Transport.TransportAnalyzer.Initialize},
+	    {"decree", EP.Ner.Decree.DecreeAnalyzer.Initialize},
+	    {"instrument", EP.Ner.Instrument.InstrumentAnalyzer.Initialize},
+	    {"titlepage", EP.Ner.Titlepage.TitlePageAnalyzer.Initialize},
+	    {"booklink", EP.Ner.Booklink.BookLinkAnalyzer.Initialize},
+	    {"business", EP.Ner.Business.BusinessAnalyzer.Initialize},
+	    {"named", EP.Ner.Named.NamedEntityAnalyzer.Initialize},
+	    {"weapon", EP.Ner.Weapon.WeaponAnalyzer.Initialize},
 	};
 
     public static void Init(string[] langs, string[] analyzers)
@@ -434,8 +457,8 @@ class Program
 	using (Server server = new Server())
 	{
 	    server.Start(conf.host, conf.port);
-	    Console.WriteLine("Press [Enter] to quit.");
-	    Console.ReadLine();
+	    // maybe better to handle ctrl-c
+	    Thread.Sleep(Timeout.Infinite);
 	}
     }
 }

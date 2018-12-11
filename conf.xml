@@ -6,11 +6,34 @@
   </listen>
   <langs>
     <lang>ru</lang>
+    <lang>ua</lang>
+    <lang>by</lang>
     <lang>en</lang>
+    <lang>it</lang>
+    <lang>kz</lang>
   </langs>
   <analyzers>
+    <analyzer>money</analyzer>
+    <analyzer>uri</analyzer>
+    <analyzer>phone</analyzer>
+    <analyzer>date</analyzer>
+    <analyzer>keyword</analyzer>
+    <analyzer>definition</analyzer>
+    <analyzer>denomination</analyzer>
+    <analyzer>measure</analyzer>
+    <analyzer>bank</analyzer>
     <analyzer>geo</analyzer>
+    <analyzer>address</analyzer>
     <analyzer>org</analyzer>
     <analyzer>person</analyzer>
+    <analyzer>mail</analyzer>
+    <analyzer>transport</analyzer>
+    <analyzer>decree</analyzer>
+    <analyzer>instrument</analyzer>
+    <analyzer>titlepage</analyzer>
+    <analyzer>booklink</analyzer>
+    <analyzer>business</analyzer>
+    <analyzer>named</analyzer>
+    <analyzer>weapon</analyzer>
   </analyzers>
 </conf>
