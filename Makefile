@@ -1,15 +1,14 @@
 
 IMAGE = pullenti/pullenti-server
-PORT = 8080
-
-clean:
-	rm -rf bin obj
 
 EP.SdkCore:
 	cp -r ../PullentiNetCore/EP.SdkCore .
 
-build: EP.SdkCore
+image: EP.SdkCore
 	docker build -t $(IMAGE) .
 
+push:
+	docker push pullenti/pullenti-server
+
 run:
-	docker run -it --rm -p $(PORT):$(PORT) $(IMAGE)
+	docker run -it --rm -p 8080:8080 $(IMAGE)
