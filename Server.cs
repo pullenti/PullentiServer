@@ -252,28 +252,35 @@ class Pullenti
 	}
     }
 
-    public static void XmlMatch(ReferentToken token, XmlWriter xml)
+    public static void XmlMatch(ReferentToken token, Token parent, XmlWriter xml)
     {
 	Referent referent = token.GetReferent();
-	int id = referent.GetHashCode();
 	int start = token.BeginChar;
-	int stop = token.EndChar;
+	int stop = token.EndChar + 1;
+	int id = token.GetHashCode();
 	xml.WriteStartElement("match");
+	xml.WriteAttributeString("id", id.ToString());
+	if (parent != null)
+	{
+	    id = parent.GetHashCode();
+	    xml.WriteAttributeString("parent", id.ToString());
+	}
+	id = referent.GetHashCode();
+	xml.WriteAttributeString("referent", id.ToString());
 	xml.WriteAttributeString("start", start.ToString());
 	xml.WriteAttributeString("stop", stop.ToString());
-	xml.WriteAttributeString("referent", id.ToString());
 	xml.WriteEndElement();
-	XmlMatches(token.BeginToken, token.EndToken, xml);
+	XmlMatches(token.BeginToken, token.EndToken, token, xml);
     }
 
-    public static void XmlMatches(Token token, Token stop, XmlWriter xml)
+    public static void XmlMatches(Token token, Token stop, Token parent, XmlWriter xml)
     {
 	while (token != null)
 	{
 	    ReferentToken referent = token as ReferentToken;
 	    if (referent != null)
 	    {
-		XmlMatch(referent, xml);
+		XmlMatch(referent, parent, xml);
 	    }
 	    if (token == stop)
 	    {
@@ -287,7 +294,7 @@ class Pullenti
     {
 	xml.WriteStartElement("result");
 	XmlReferents(result.Entities, xml);
-	XmlMatches(result.FirstToken, null, xml);
+	XmlMatches(result.FirstToken, null, null, xml);
 	xml.WriteEndElement();
     }
 }
