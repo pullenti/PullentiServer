@@ -1,7 +1,10 @@
 
 IMAGE = pullenti/pullenti-server
 
-EP.SdkCore:
+../PullentiNetCore:
+	git clone https://github.com/pullenti/PullentiNetCore.git ../PullentiNetCore
+
+EP.SdkCore: ../PullentiNetCore
 	cp -r ../PullentiNetCore/EP.SdkCore .
 
 image: EP.SdkCore
