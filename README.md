@@ -1,6 +1,6 @@
 # PullentiServer [![Build Status](https://travis-ci.org/pullenti/PullentiServer.svg?branch=master)](https://travis-ci.org/pullenti/PullentiServer)
 
-Простая обёртка HTTP-сервер для библиотеки PullEnti для .NET Core 2.0. Запросы обрабатываются последовательно, нет ограничений на число запросов, объём текста в одном запросе, время обработки. Предполагается, что сервер используется локально в связке с [pullenti-client](https://github.com/pullenti/pullenti-client). 
+Простая обёртка HTTP-сервер для библиотеки [PullEnti для .NET Core 2.0](https://github.com/pullenti/PullentiNetCore). Запросы обрабатываются последовательно, нет ограничений на время обработки, число запросов, объём текста в одном запросе. Предполагается, что сервер используется локально в связке с [pullenti-client](https://github.com/pullenti/pullenti-client). 
 
 ## Использование
 
@@ -26,13 +26,14 @@ custom.xml:
 </conf>
 ```
 
-Cписок langs: ru, ua, by, en, it, kz.
-Список analyzers: money, uri, phone, date, keyword, definition, denomination, measure, bank, geo, address, org, person, mail, transport, decree, instrument, titlepage, booklink, business, named, weapon.
+Cписок доступных langs: ru, ua, by, en, it, kz.
+
+Список доступных analyzers: money, uri, phone, date, keyword, definition, denomination, measure, bank, geo, address, org, person, mail, transport, decree, instrument, titlepage, booklink, business, named, weapon.
 
 Запустить демон на порте 8083:
 
 ```bash
-docker run -d --name pullenti -p 8083:8080 -v $PWD/custon.xml:/app/conf.xml pullenti/pullenti-server
+docker run -d --name pullenti -p 8083:8080 -v $PWD/custom.xml:/app/conf.xml pullenti/pullenti-server
 ```
 
 Запрос:
@@ -93,7 +94,7 @@ docker logs pullenti
 ...
 ```
 
-Остановить:
+Остановить сервер:
 
 ```bash
 docker kill pullenti
@@ -102,14 +103,7 @@ docker rm pullenti
 
 ## Разработка
 
-Скачать PullEnti SDK
-
-```bash
-cd ..
-git clone https://github.com/pullenti/PullentiNetCore.git
-```
-
-Собрать и опубликовать контейнер
+Собрать и опубликовать контейнер:
 
 ```bash
 make image push
