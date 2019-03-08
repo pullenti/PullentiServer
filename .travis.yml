@@ -7,7 +7,7 @@ services:
 
 before_install:
   - make image
-  - make deamon
+  - make up
 
 script:
   - sleep 20
