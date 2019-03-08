@@ -11,7 +11,7 @@ image: EP.SdkCore
 	docker build -t $(IMAGE) .
 
 push:
-	docker push pullenti/pullenti-server
+	docker push $(IMAGE)
 
 deamon:
 	docker run -d -p 8080:8080 $(IMAGE)
