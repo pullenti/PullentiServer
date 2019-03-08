@@ -1,4 +1,5 @@
 
+VERSION = 3.17
 IMAGE = pullenti/pullenti-server
 
 ../PullentiNetCore:
@@ -8,16 +9,18 @@ EP.SdkCore: ../PullentiNetCore
 	cp -r ../PullentiNetCore/EP.SdkCore .
 
 image: EP.SdkCore
-	docker build -t $(IMAGE) .
+	docker build -t $(IMAGE):$(VERSION) .
+	docker tag $(IMAGE):$(VERSION) $(IMAGE)
 
 push:
 	docker push $(IMAGE)
+	docker push $(IMAGE):$(TAG)
 
-deamon:
-	docker run -d -p 8080:8080 $(IMAGE)
+up:
+	docker run -d --name pullenti -p 8080:8080 $(IMAGE)
 
-run:
-	docker run -it --rm -p 8080:8080 $(IMAGE)
+down:
+	docker rm -f pullenti
 
 test:
 	python test.py

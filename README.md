@@ -65,13 +65,13 @@ curl -X POST http://localhost:8083/ -d 'Единственным конкуре�
   <slot parent="14464807" value="MALE" key="SEX" />
   <slot parent="14464807" value="КОНТРУС" key="LASTNAME" />
   <slot parent="14464807" value="КАРЛ" key="FIRSTNAME" />
-  <match start="25" stop="35" referent="8046282" />
-  <match start="68" stop="98" referent="32015599" />
-  <match start="139" stop="177" referent="56037156" />
-  <match start="228" stop="238" referent="8046282" />
-  <match start="284" stop="293" referent="32015599" />
-  <match start="334" stop="345" referent="14464807" />
-  <match start="377" stop="387" referent="8046282" />
+  <match id="803548" referent="10675717" start="25" stop="36" />
+  <match id="26517107" referent="16754362" start="68" stop="99" />
+  <match id="2649323" referent="16023056" start="139" stop="178" />
+  <match id="20318803" referent="10675717" start="228" stop="239" />
+  <match id="66540731" referent="16754362" start="284" stop="294" />
+  <match id="48360500" referent="58998806" start="334" stop="346" />
+  <match id="52392654" referent="10675717" start="377" stop="388" />
 </result>
 
 ```
@@ -103,8 +103,24 @@ docker rm pullenti
 
 ## Разработка
 
+Собрать контейнер:
+
+```bash
+rm -r EP.SdkCore
+# patch version Makefile:IMAGE=...
+make image
+```
+
+Тест:
+
+```bash
+make up
+make test
+make down
+```
+
 Собрать и опубликовать контейнер:
 
 ```bash
-make image push
+make push
 ```
