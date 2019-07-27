@@ -115,12 +115,22 @@ make image
 
 ```bash
 make up
+# wait 5 sec
 make test
 make down
 ```
 
-Собрать и опубликовать контейнер:
+Опубликовать контейнер:
 
 ```bash
 make push
+```
+
+Закомитить
+
+```bash
+git status
+git add .
+git commit -m 'Mirror 3.19'
+git push
 ```
