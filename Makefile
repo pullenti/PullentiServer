@@ -1,5 +1,5 @@
 
-VERSION = 3.20
+VERSION = 3.20.2
 IMAGE = pullenti/pullenti-server
 
 ../PullentiNetCore:
