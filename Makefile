@@ -1,5 +1,5 @@
 
-VERSION = 3.20.2
+VERSION = 3.21
 IMAGE = pullenti/pullenti-server
 
 ../PullentiNetCore:
@@ -14,7 +14,7 @@ image: EP.SdkCore
 
 push:
 	docker push $(IMAGE)
-	docker push $(IMAGE):$(TAG)
+	docker push $(IMAGE):$(VERSION)
 
 up:
 	docker run -d --name pullenti -p 8080:8080 $(IMAGE)
