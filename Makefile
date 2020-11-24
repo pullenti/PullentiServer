@@ -1,14 +1,14 @@
 
-VERSION = 3.23
+VERSION = 4.0
 IMAGE = pullenti/pullenti-server
 
-../PullentiNetCore:
-	git clone https://github.com/pullenti/PullentiNetCore.git ../PullentiNetCore
+../PullentiCSharp:
+	git clone https://github.com/pullenti/PullentiCSharp.git ../PullentiCSharp
 
-EP.SdkCore: ../PullentiNetCore
-	cp -r ../PullentiNetCore/EP.SdkCore .
+Pullenti: ../PullentiCSharp
+	cp -r ../PullentiCSharp/Pullenti .
 
-image: EP.SdkCore
+image: Pullenti
 	docker build -t $(IMAGE):$(VERSION) .
 	docker tag $(IMAGE):$(VERSION) $(IMAGE)
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.IO;
 using System.Text;
 using System.Xml;
@@ -7,8 +8,8 @@ using System.Threading;
 using System.Diagnostics;
 using System.Collections.Generic;
 
-using EP.Ner;
-using EP.Morph;
+using Pullenti.Ner;
+using Pullenti.Morph;
 
 class Log
 {
@@ -107,7 +108,7 @@ class Conf
 	foreach (XmlNode node in nodes)
 	{
 	    string lang = node.InnerText;
-	    if (!Pullenti.LANGS.ContainsKey(lang))
+	    if (!Pullenti_.LANGS.ContainsKey(lang))
 	    {
 		throw new ConfException(String.Format("Bad lang: {0}", lang));
 	    }
@@ -132,7 +133,7 @@ class Conf
 	foreach (XmlNode node in nodes)
 	{
 	    string analyzer = node.InnerText;
-	    if (!Pullenti.ANALYZERS.ContainsKey(analyzer))
+	    if (!Pullenti_.ANALYZERS.ContainsKey(analyzer))
 	    {
 		throw new ConfException(String.Format("Bad analyzer: {0}", analyzer));
 	    }
@@ -146,7 +147,7 @@ class Conf
     }
 }
 
-class Pullenti
+class Pullenti_
 {
     public static Dictionary<string, MorphLang> LANGS = new Dictionary<string, MorphLang>
 	{
@@ -160,28 +161,27 @@ class Pullenti
 
     public static Dictionary<string, Action> ANALYZERS = new Dictionary<string, Action>
 	{
-	    {"money", EP.Ner.Money.MoneyAnalyzer.Initialize},
-	    {"uri", EP.Ner.Uri.UriAnalyzer.Initialize},
-	    {"phone", EP.Ner.Phone.PhoneAnalyzer.Initialize},
-	    {"date", EP.Ner.Date.DateAnalyzer.Initialize},
-	    {"keyword", EP.Ner.Keyword.KeywordAnalyzer.Initialize},
-	    {"definition", EP.Ner.Definition.DefinitionAnalyzer.Initialize},
-	    {"denomination", EP.Ner.Denomination.DenominationAnalyzer.Initialize},
-	    {"measure", EP.Ner.Measure.MeasureAnalyzer.Initialize},
-	    {"bank", EP.Ner.Bank.BankAnalyzer.Initialize},
-	    {"geo", EP.Ner.Geo.GeoAnalyzer.Initialize},
-	    {"address", EP.Ner.Address.AddressAnalyzer.Initialize},
-	    {"org", EP.Ner.Org.OrganizationAnalyzer.Initialize},
-	    {"person", EP.Ner.Person.PersonAnalyzer.Initialize},
-	    {"mail", EP.Ner.Mail.MailAnalyzer.Initialize},
-	    {"transport", EP.Ner.Transport.TransportAnalyzer.Initialize},
-	    {"decree", EP.Ner.Decree.DecreeAnalyzer.Initialize},
-	    {"instrument", EP.Ner.Instrument.InstrumentAnalyzer.Initialize},
-	    {"titlepage", EP.Ner.Titlepage.TitlePageAnalyzer.Initialize},
-	    {"booklink", EP.Ner.Booklink.BookLinkAnalyzer.Initialize},
-	    {"business", EP.Ner.Business.BusinessAnalyzer.Initialize},
-	    {"named", EP.Ner.Named.NamedEntityAnalyzer.Initialize},
-	    {"weapon", EP.Ner.Weapon.WeaponAnalyzer.Initialize},
+	    {"money", Pullenti.Ner.Money.MoneyAnalyzer.Initialize},
+	    {"uri", Pullenti.Ner.Uri.UriAnalyzer.Initialize},
+	    {"phone", Pullenti.Ner.Phone.PhoneAnalyzer.Initialize},
+	    {"date", Pullenti.Ner.Date.DateAnalyzer.Initialize},
+	    {"keyword", Pullenti.Ner.Keyword.KeywordAnalyzer.Initialize},
+	    {"definition", Pullenti.Ner.Definition.DefinitionAnalyzer.Initialize},
+	    {"denomination", Pullenti.Ner.Denomination.DenominationAnalyzer.Initialize},
+	    {"measure", Pullenti.Ner.Measure.MeasureAnalyzer.Initialize},
+	    {"bank", Pullenti.Ner.Bank.BankAnalyzer.Initialize},
+	    {"geo", Pullenti.Ner.Geo.GeoAnalyzer.Initialize},
+	    {"address", Pullenti.Ner.Address.AddressAnalyzer.Initialize},
+	    {"org", Pullenti.Ner.Org.OrganizationAnalyzer.Initialize},
+	    {"person", Pullenti.Ner.Person.PersonAnalyzer.Initialize},
+	    {"mail", Pullenti.Ner.Mail.MailAnalyzer.Initialize},
+	    {"transport", Pullenti.Ner.Transport.TransportAnalyzer.Initialize},
+	    {"decree", Pullenti.Ner.Decree.DecreeAnalyzer.Initialize},
+	    {"instrument", Pullenti.Ner.Instrument.InstrumentAnalyzer.Initialize},
+	    {"titlepage", Pullenti.Ner.Titlepage.TitlePageAnalyzer.Initialize},
+	    {"booklink", Pullenti.Ner.Booklink.BookLinkAnalyzer.Initialize},
+	    {"named", Pullenti.Ner.Named.NamedEntityAnalyzer.Initialize},
+	    {"weapon", Pullenti.Ner.Weapon.WeaponAnalyzer.Initialize},
 	};
 
     public static void Init(string[] langs, string[] analyzers)
@@ -190,9 +190,9 @@ class Pullenti
 	foreach (string lang in langs)
 	{
 	    Log.Info("Load lang: {0}", lang);
-	    Morphology.LoadLanguages(LANGS[lang]);
+	    MorphologyService.LoadLanguages(LANGS[lang]);
 	}
-	ProcessorService.Initialize(Morphology.LoadedLanguages);
+	ProcessorService.Initialize(MorphologyService.LoadedLanguages);
 	foreach (string analyzer in analyzers)
 	{
 	    Log.Info("Load analyzer: {0}", analyzer);
@@ -393,7 +393,7 @@ class Server: IDisposable
 	Stream output = response.OutputStream;
 	using (XmlWriter xml = WriteXml(output))
 	{
-	    Pullenti.XmlResult(result, xml);
+	    Pullenti_.XmlResult(result, xml);
 	}
 	output.Close();
     }
@@ -434,7 +434,7 @@ class Server: IDisposable
 	    string text = ReadPostData(context.Request);
 	    // maybe check errors in process and write
 	    // maybe errors in thread in general
-	    var result = Pullenti.Process(text);
+	    var result = Pullenti_.Process(text);
 	    WriteResult(result, context.Response);
 	}
 	catch (ServerException error)
@@ -460,7 +460,7 @@ class Program
 	    return;
 	}
 
-	Pullenti.Init(conf.langs, conf.analyzers);
+	Pullenti_.Init(conf.langs, conf.analyzers);
 	using (Server server = new Server())
 	{
 	    server.Start(conf.host, conf.port);
