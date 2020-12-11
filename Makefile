@@ -1,12 +1,12 @@
 
-VERSION = 4.0
+VERSION = 4.1
 IMAGE = pullenti/pullenti-server
 
 ../PullentiCSharp:
 	git clone https://github.com/pullenti/PullentiCSharp.git ../PullentiCSharp
 
 Pullenti: ../PullentiCSharp
-	cp -r ../PullentiCSharp/Pullenti .
+	cp -r ../PullentiCSharp/PullentiCSharp/Pullenti .
 
 image: Pullenti
 	docker build -t $(IMAGE):$(VERSION) .
